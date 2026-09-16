@@ -69,7 +69,7 @@ dès qu'il tombe sous 15 HP.
 ## Travail à faire avant le cours
 
 1. Forkez ce dépôt sur votre compte GitHub
-2. Lancez `python app.py` et jouez quelques tours pour comprendre le jeu
+2. Lancez `python main.py` et jouez quelques tours pour comprendre le jeu
 3. Lisez attentivement le code et posez-vous les questions suivantes :
    - Que fait la méthode `agir()` de la classe `Ennemi` ?
    - Que faudrait-il modifier pour ajouter un comportement "Berserk" qui double ses dégâts quand ses HP sont sous 25% ?
