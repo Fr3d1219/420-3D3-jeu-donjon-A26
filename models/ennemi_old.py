@@ -8,6 +8,7 @@ class Ennemi:
         self.attaque = attaque
         self.comportement = comportement  # "agressif", "defensif", "aleatoire", "furtif"
         self._tour_furtif = 0
+        self._tour_beserker = 0
 
     def agir(self):
         """Décide si l'ennemi attaque ou se défend selon son comportement."""
@@ -29,6 +30,15 @@ class Ennemi:
                 return "defend"
             else:
                 return "attaque"
+        
+        elif:
+            # Si en bas de 10%, alors on change le comportement
+            self.comportement = "berserker"
+            # Et on agis en fonction
+            # si berserker impair
+            # attaquer 2 fois
+            return "berserker"
+            pass
 
     def recevoir_degats(self, degats):
         self.hp = max(0, self.hp - degats)

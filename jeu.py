@@ -1,4 +1,8 @@
-from ennemi import Ennemi
+from models.ennemi import Ennemi
+from models.ennemi_aggressif import EnnemiAgressif
+from models.ennemi_defensif import EnnemiDefensif
+from models.ennemi_aleatoire import EnnemiAleatoire
+from models.ennemi_furtif import EnnemiFurtif
 
 class Jeu:
     def __init__(self):
@@ -7,9 +11,9 @@ class Jeu:
         self.heros_attaque = 20
 
         self.ennemis = [
-            Ennemi("Goblin", 50, 10, "agressif"),
-            Ennemi("Dragon", 100, 20, "defensif"),
-            Ennemi("Voleur", 30, 15, "furtif"),
+            EnnemiAgressif("Goblin", 50, 10,),
+            EnnemiDefensif("Dragon", 100, 20,),
+            EnnemiFurtif("Voleur", 30, 15),
         ]
 
     def ennemis_vivants(self):
@@ -24,11 +28,11 @@ class Jeu:
 
         while self.heros_hp > 0 and self.ennemis_vivants():
             # Afficher l'état
-            print(f"Tour {tour} — Héros (HP: {self.heros_hp}/{self.heros_hp_max})")
+            print(f"Tour {tour} — Héros (HP: {self.heros_hp}/{self.heros_hp_max}) ")
             print("\nEnnemis :")
             vivants = self.ennemis_vivants()
             for i, ennemi in enumerate(vivants, 1):
-                print(f"  [{i}] {ennemi.nom} (HP: {ennemi.hp}/{ennemi.hp_max}) — {ennemi.comportement}")
+                print(f"  [{i}] {ennemi.nom} (HP: {ennemi.hp}/{ennemi.hp_max}) - {type(ennemi).__name__}")
             print()
 
             # Demander l'action du héros
@@ -65,6 +69,7 @@ class Jeu:
                 if actions_ennemis.get(cible) == "defend":
                     degats = self.heros_attaque // 2
                     print(f"Vous attaquez {cible.nom} — il se défend ! Seulement {degats} dégâts infligés.")
+                # elif berserker on double dégats
                 else:
                     degats = self.heros_attaque
                     print(f"Vous attaquez {cible.nom} pour {degats} dégâts !")
