@@ -1,15 +1,21 @@
-from ennemi import Ennemi
+from models.ennemi import Ennemi
+from models.comportements.comportement_aggressif import ComportementAgressif
+from models.comportements.comportement_defensif import ComportementDefensif
+from models.comportements.comportement_aleatoire import ComportementAleatoire
+from models.comportements.comportement_furtif import ComportementFurtif
+from models.comportements.comportement_berserker import ComportementBerserker
 
 class Jeu:
     def __init__(self):
-        self.heros_hp = 100
-        self.heros_hp_max = 100
-        self.heros_attaque = 20
+        self.heros_hp = 200
+        self.heros_hp_max = 200
+        self.heros_attaque = 50
 
         self.ennemis = [
-            Ennemi("Goblin", 50, 10, "agressif"),
-            Ennemi("Dragon", 100, 20, "defensif"),
-            Ennemi("Voleur", 30, 15, "furtif"),
+            Ennemi("Goblin",  hp=50,  attaque=8,  comportement=ComportementAgressif()),
+            Ennemi("Dragon",  hp=100, attaque=12, comportement=ComportementDefensif()),
+            Ennemi("Spectre", hp=40,  attaque=10, comportement=ComportementAleatoire()),
+            Ennemi("Voleur",  hp=30,  attaque=10, comportement=ComportementFurtif())
         ]
 
     def ennemis_vivants(self):
@@ -28,7 +34,7 @@ class Jeu:
             print("\nEnnemis :")
             vivants = self.ennemis_vivants()
             for i, ennemi in enumerate(vivants, 1):
-                print(f"  [{i}] {ennemi.nom} (HP: {ennemi.hp}/{ennemi.hp_max}) — {ennemi.comportement}")
+                print(f"  [{i}] {ennemi.nom} (HP: {ennemi.hp}/{ennemi.hp_max}) — {ennemi.get_comportement().__class__.__name__}")
             print()
 
             # Demander l'action du héros
@@ -87,8 +93,8 @@ class Jeu:
 
             # Adaptation des comportements
             for ennemi in self.ennemis_vivants():
-                if ennemi.hp < ennemi.hp_max * 0.3 and ennemi.comportement != "defensif":
-                    ennemi.comportement = "defensif"
+                if ennemi.hp < ennemi.hp_max * 0.3 and ennemi.comportement !=ComportementDefensif():
+                    ennemi.set_comportement(ComportementDefensif())
                     print(f"  ⚡ {ennemi.nom} change de tactique — il devient Défensif !")
 
             print()
